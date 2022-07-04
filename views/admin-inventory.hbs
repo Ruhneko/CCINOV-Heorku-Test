@@ -1,0 +1,90 @@
+<div class="margin-left-240">
+    <div class="container margin-top-48">
+        <a href="/add" class="waves-effect waves-light btn"><i class="material-icons left">add</i>Add Item</a>
+        <center>
+            <h5 id="admin-header">DLSU Laboratories</h5>
+        </center>
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s4">
+                        <select class="browser-default" id="home-loc-select">
+                            <option value="" disabled selected>Select a Location</option>
+                            <option value="Laguna Campus">Laguna Campus</option>
+                            <option value="Taft Campus">Taft Campus</option>
+                        </select>
+                    </div>
+                    <div class="col s4">
+                        <select class="browser-default" id="home-lab-select">
+                            <option value="" disabled selected>Select a Lab</option>
+                        </select>
+                    </div>
+                </div>
+                <table class="table table-striped highlight" id="lab-items-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Stock</th>
+                            <th>Tags</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#home-loc-select").on('change', function () {
+        $('#admin-header').html(this.value)
+        $('#home-lab-select').empty()
+        $('#home-lab-select').append('<option value="" disabled selected>Select a Lab</option>')
+
+        var labList = [{{{ labs }}}]
+            for (var i = 0; i < labList.length; i++) {
+        if (labList[i].location == this.value)
+            $('#home-lab-select').append('<option value="' + labList[i].name + '">' + labList[i].name + '</option>')
+    }
+        });
+
+    $("#home-lab-select").on('change', function () {
+        curlocation = $("#home-loc-select").val()
+        lab = this.value
+        $('#admin-header').html(this.value + " - " + curlocation);
+
+        $("#lab-items-table").find('tbody').empty();
+
+        $.ajax({
+            url: '/getLabItems',
+            method: 'GET',
+            data: {
+                location: curlocation,
+                name: lab
+            },
+            success: function (results) {
+                LabItems = results;
+                console.log(LabItems)
+                for (var j = 0; j < LabItems.length; j++) {
+                    var item = LabItems[j].item
+                    $("#lab-items-table").find('tbody').append('<tr id="table-row-' + j + '">')
+                    $("#table-row-" + j).append('<td>' + item.name + '</td>')
+                        .append('<td>' + LabItems[j].stock + '</td>')
+                        .append('<td id="chip-column-' + j + '">')
+                    tags = JSON.parse(item.tags)
+                    for (var k = 0; k < tags.length; k++) {
+                        $("#chip-column-" + j).append('<div class="chip">' + tags[k].tag + '</div>')
+                    }
+                    query = 'name=' + lab + '&location=' + curlocation + '&item=' + item.name + '"'
+                    $("#table-row-" + j).append('<td><a href="/update?' + query + 'class="btn">Update</a></td>')
+                }
+
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,270 @@
+<div class="margin-left-320 margin-right-24">
+    <div class="margin-top-48">
+        <h5>Loan Applications Activity</h5>
+        <div class="row">
+            <div class="col s3">
+                <div class="card-panel">
+                    <h3 class="yellow-text text-darken-2">32</h3>
+                    <p>Applications</p>
+                    <span>
+                        <i class="tiny material-icons">access_time</i>
+                        PENDING
+                    </span>
+                </div>
+            </div>
+            <div class="col s3">
+                <div class="card-panel">
+                    <h3 class="blue-text">40</h3>
+                    <p>Applications</p>
+                    <span>
+                        <i class="tiny material-icons">check</i>
+                        ACTIVE
+                    </span>
+                </div>
+            </div>
+            <div class="col s3">
+                <div class="card-panel">
+                    <h3 class="green-text">20</h3>
+                    <p>Applications</p>
+                    <span>
+                        <i class="tiny material-icons">vertical_align_bottom</i>
+                        RETURNED TODAY
+                    </span>
+                </div>
+            </div>
+            <div class="col s3">
+                <div class="card-panel">
+                    <h3 class="red-text text-darken-4">10</h3>
+                    <p>Applications</p>
+                    <span>
+                        <i class="tiny material-icons">priority_high</i>
+                        OVERDUE
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-content">
+                <div class="row">
+                    <div class="col s8">
+                        <div class="border">
+                            <div class="border-bottom">
+                                <h5 class="padding-bot-4">Borrowers' Count per Laboratories</h5>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h6>Manila Campus</h6>
+                                    <canvas id="manilaPieChart" width="300" height="300"></canvas>
+                                </div>
+
+                                <div class="col">
+                                    <h6>Laguna Campus</h6>
+                                    <canvas id="lagunaPieChart" width="300" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s4">
+                        <div class="border">
+                            <div class="border-bottom">
+                                <h5 class="padding-bot-4">Frequently Borrowed Materials</h5>
+                            </div>
+                            <canvas id="freqHorChart" width="300" height="300" class="margin-bot-8"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="col s8 margin-top-16">
+                        <div class="border">
+                            <div class="border-bottom">
+                                <h5 class="padding-bot-4">User Count per ID Number</h5>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <h6>Manila Campus</h6>
+                                    <canvas id="manilaUserPieChart" width="300" height="300"></canvas>
+                                </div>
+                                <div class="col">
+                                    <h6>Laguna Campus</h6>
+                                    <canvas id="lagunaUserPieChart" width="300" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s4 margin-top-16 margin-bot-8">
+                        <div class="border">
+                            <div class="border-bottom">
+                                <h5 class="padding-bot-4">Purchase Requests</h5>
+                            </div>
+                            <div class="row">
+                                <div class="col s6 left">
+                                    <h6>#R10000</h6>
+                                    <p>200 Petri Dishes</p>
+                                </div>
+                                <div class="col right">
+                                    <p class="right-align">Jun 30, 2022 9:00</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s6 left">
+                                    <h6>#R10001</h6>
+                                    <p>20 Bottles of 1 Liter Hydrochloric Acid</p>
+                                </div>
+                                <div class="col right">
+                                    <p class="right-align">Jun 30, 2022 11:00</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s6 left">
+                                    <h6>#R10001</h6>
+                                    <p>5 Graduated Cylinders</p>
+                                </div>
+                                <div class="col right">
+                                    <p class="right-align">Jun 30, 2022 21:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+    const ctx = document.getElementById('manilaPieChart');
+    const myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [
+                {
+                    data: [10, 20, 15, 5, 50],
+                    backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)',],
+                },
+            ],
+            labels: ['STRC11', 'STRC404', 'STRC406', 'STRC407', 'STRC408'],
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    formatter: (value) => {
+                        return value + '%';
+                    }
+                }
+            }
+        }
+    });
+
+    const ctx1 = document.getElementById('lagunaPieChart');
+    const myChart1 = new Chart(ctx1, {
+        type: 'doughnut',
+        data: {
+            datasets: [
+                {
+                    data: [10, 15, 20, 50, 5],
+                    backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)',],
+                },
+            ],
+            labels: ['Animo Labs', 'Physics Lab', 'Biology Lab', 'Optics Lab', 'Genomics Lab'],
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    formatter: (value) => {
+                        return value + '%';
+                    }
+                }
+            }
+        }
+    });
+
+
+    const ctx2 = document.getElementById('manilaUserPieChart');
+    const myChart2 = new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: ['117', '118', '119', '120', '121'],
+            datasets: [{
+                data: [50, 60, 70, 180, 190],
+                backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)',],
+            }]
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    display: true,
+                    align: 'bottom',
+                    backgroundColor: '#ccc',
+                    borderRadius: 3,
+                    font: {
+                        size: 18,
+                    }
+                },
+            }
+        }
+    });
+
+
+    const ctx3 = document.getElementById('lagunaUserPieChart');
+    const myChart3 = new Chart(ctx3, {
+        type: 'pie',
+        data: {
+            labels: ['117', '118', '119', '120', '121'],
+            datasets: [{
+                data: [50, 60, 70, 180, 190],
+                backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)',],
+            }]
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    display: true,
+                    align: 'bottom',
+                    backgroundColor: '#ccc',
+                    borderRadius: 3,
+                    font: {
+                        size: 18,
+                    }
+                },
+            }
+        }
+    });
+
+    const ctx4 = document.getElementById('freqHorChart');
+    const myChart4 = new Chart(ctx4, {
+        type: 'bar',
+        data: {
+            labels: ['Petri Dish', 'Erlenmeyer Flask', 'Test tubes', 'Beakers', 'Pipets'],
+            datasets: [{
+                data: [55, 43, 30, 22, 21],
+                fill: false,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)'
+                ],
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+</script>

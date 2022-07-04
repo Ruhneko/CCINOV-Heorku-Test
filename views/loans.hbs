@@ -1,0 +1,131 @@
+<div class="container margin-top-48">
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s4"><a href="#cart">Cart</a></li>
+                <li class="tab col s4"><a href="#loan">On Loan</a></li>
+                <li class="tab col s4"><a href="#fines">Fines &amp; Fees</a></li>
+            </ul>
+        </div>
+
+        <!-- CART -->
+        <div id="cart" class="col s12">
+            <div class="row"></div>
+            <table class="table table-striped highlight">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><button class="cancel-btn"><i class="fa fa-trash-o"></i></button></td>
+                        <td id="name">250ml Erlenmeyer Flask (Glass)</td>
+                        <td id="quantity">1</td>
+                        <td style="color:green">Available</td>
+                    </tr>
+                    <tr>
+                        <td><button class="cancel-btn"><i class="fa fa-trash-o"></i></button></td>
+                        <td id="name">Pyrex Petri Dish (Top and Bottom, Glass)</td>
+                        <td id="quantity">2</td>
+                        <td style="color:rgb(212, 74, 19)">Unavailable</td>
+                    </tr>
+                    <tr>
+                        <td><button class="cancel-btn"><i class="fa fa-trash-o"></i></button></td>
+                        <td id="name">250mL Graduated Cylinder (Glass)</td>
+                        <td id="quantity">1</td>
+                        <td style="color:green">Available</td>
+                    </tr>
+                    <tr style="border: 0">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><button type="button" class="btn btn-primary">Reserve</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- LOANS -->
+        <div id="loan" class="col s12">
+            <div class="row"></div>
+
+            <table class="table table-striped highlight">
+                <thead>
+                    <tr>
+                        <th scope="col">Item</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date Borrowed</th>
+                        <th scope="col">Broken/Missing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="name">250ml Erlenmeyer Flask (Glass)</td>
+                        <td id="quantity">1</td>
+                        <td style="color:green">On Loan</td>
+                        <td>May 16, 2022</td>
+                        <td><a href="#reportmodal" class="report-modalbtn btn modal-trigger">Report</a></td>
+                    </tr>
+                    <tr>
+                        <td id="name">250mL Graduated Cylinder (Glass)</td>
+                        <td id="quantity">1</td>
+                        <td style="color:green">On Loan</td>
+                        <td>May 16, 2022</td>
+                        <td><a href="#reportmodal" class="report-modalbtn btn modal-trigger">Report</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Modal Structure -->
+            <div class="modal" id="reportmodal">
+                <div class="modal-content">
+                    <form>
+                        <h5>Report Problem</h5>
+                        <div id="report-name">
+                            <p>Placeholder</p>
+                        </div>
+                        <div>
+                            <input type="number" id="report-quantity" name="quantity" min="1" max="1" placeholder="Quantity">
+                        </div>
+                        <a class="waves-effect waves-light btn">Submit</a>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FINES -->
+        <div id="fines" class="col s12">
+            <p align="center" style="color:rgb(212, 74, 19)">Currently No Fines or Fees</p>
+        </div>
+
+        <script type="text/javascript">
+            var el = document.querySelector('.tabs');
+            var instance = M.Tabs.init(el, {});
+
+            $(document).on("click", ".report-modalbtn", function () {
+                var item = $(this).parent().siblings("#name").text();
+                var max = $(this).parent().siblings("#quantity").text();
+                $("#report-name").text(item);
+                $('#report-quantity').attr('max', max)
+                $('#report-quantity').val(1)
+            });
+
+            $('#report-quantity').on('keydown keyup change', function (e) {
+                if ($(this).val() > $(this).attr('max')
+                    && e.keyCode !== 46 // keycode for delete
+                    && e.keyCode !== 8 // keycode for backspace
+                ) {
+                    e.preventDefault();
+                    $(this).val($(this).attr('max'));
+                }
+
+            });
+        </script>
+    </div>
+</div>

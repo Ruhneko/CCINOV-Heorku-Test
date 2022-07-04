@@ -1,0 +1,23 @@
+<div class="row" style="padding-top:5%">
+    <div class="col s4"></div>
+    <div class="col s4">
+        <div class="card-panel">
+            <center><img src="/imgs/logo-green.png" width="200px" height="50px"></center>
+            <h5>Admin Login Credentials</h5>
+            <form id="admin-login-form" name="admin-login-form" method="POST">
+
+                {{#if invalid}}
+                <b style="color: red;">Invalid credentials. Please try again.</b>
+                {{/if}}
+
+                <input placeholder="Username" name="admin-username" id="admin-username" required>
+
+                <input placeholder="Password" name="admin-password" id="admin-password" type="password" required>
+
+                <input class="waves-effect waves-light btn" type="submit" id="admin-login-submit"
+                    name="admin-login-submit">
+            </form>
+        </div>
+    </div>
+    <div class="col s4"></div>
+</div>

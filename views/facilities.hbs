@@ -1,0 +1,27 @@
+<div class="facilities-box">
+    <select class="browser-default" id="fac-select">
+        <option value="" disabled selected>Select a Department</option>
+        <option value="https://www.dlsu.edu.ph/colleges/cos/departments/biology/facilities/">Biology Department</option>
+        <option value="https://www.dlsu.edu.ph/colleges/cos/departments/chemistry/chemistry-department-laboratory-facilities-chem/">Chemistry Department</option>
+        <option value="https://www.dlsu.edu.ph/colleges/gcoe/academic-departments/chemical-engineering/laboratory-and-facilities/">Chemical Engineering Department</option>
+    </select>
+</div>
+
+<div class="iframe-container">
+    <iframe id="fac-frame" src="https://www.dlsu.edu.ph/colleges/cos/departments/chemistry/chemistry-department-laboratory-facilities-chem/" width="100%" height="100%"></iframe>
+</div>
+
+
+
+<script>
+    $(document).ready(function(){
+        $('select').formSelect();
+        
+        $("#fac-select").on('change', function() {
+            $("#fac-frame").attr("src", this.value);
+
+        });
+    });
+
+ 
+</script>
