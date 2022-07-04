@@ -14,6 +14,7 @@ const session = require('express-session'); //EXPRESS-SESSIONS
 const cookieParser = require('cookie-parser'); //COOKIES
 const bodyParser = require('body-parser'); //BODY PARSING
 const MongoStore = require('connect-mongo');
+const { envPort, sessionKey, dbURL} = require('./config');
 
 const app = express();
 
@@ -54,7 +55,7 @@ app.engine(
 
 app.set('trust proxy', 1);
 const sessOpts = {
-    secret: "put your secrets elsewhere I can't see",
+    secret: sessionKey,
     resave: false,
     saveUninitialized: false, // no need to bloat the server with sessions for non-admins
     cookie: {
@@ -62,7 +63,7 @@ const sessOpts = {
         secure: false,
         //sameSite: 'none'
     },
-    store: MongoStore.create({ mongoUrl: 'mongodb+srv://admin1:admin1@cluster0.nkw67.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' })
+    store: MongoStore.create({ mongoUrl: dbURL })
 };
 
 if (app.get('env') === 'production') {
@@ -79,7 +80,7 @@ app.use(sessMiddleware);
 
 app.use('/', routes);
 
-let port = process.env.PORT;
+let port = envPort;
 if(port == null || port === "") {
     port = 3000;
 }
