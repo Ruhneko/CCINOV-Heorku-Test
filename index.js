@@ -81,9 +81,6 @@ app.use(sessMiddleware);
 app.use('/', routes);
 
 let port = envPort;
-if(port == null || port === "") {
-    port = 3000;
-}
 
 database.connectToDb();
 
