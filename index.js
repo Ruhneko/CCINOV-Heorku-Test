@@ -1,7 +1,8 @@
 //=========================================================
 // Dependencies
 //=========================================================
-
+const dotenv = require('dotenv');
+dotenv.config();
 const { hasSubscribers } = require('diagnostics_channel');
 const express = require('express');
 const { engine } = require('express-handlebars');
@@ -14,7 +15,6 @@ const session = require('express-session'); //EXPRESS-SESSIONS
 const cookieParser = require('cookie-parser'); //COOKIES
 const bodyParser = require('body-parser'); //BODY PARSING
 const MongoStore = require('connect-mongo');
-const { envPort, sessionKey, dbURL} = require('./config');
 
 const app = express();
 
@@ -55,7 +55,7 @@ app.engine(
 
 app.set('trust proxy', 1);
 const sessOpts = {
-    secret: sessionKey,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false, // no need to bloat the server with sessions for non-admins
     cookie: {
@@ -63,7 +63,7 @@ const sessOpts = {
         secure: false,
         //sameSite: 'none'
     },
-    store: MongoStore.create({ mongoUrl: dbURL })
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URL })
 };
 
 if (app.get('env') === 'production') {
@@ -80,7 +80,7 @@ app.use(sessMiddleware);
 
 app.use('/', routes);
 
-let port = envPort;
+let port = process.env.PORT;
 
 database.connectToDb();
 
