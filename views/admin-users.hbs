@@ -1,14 +1,14 @@
 <div class="margin-left-240">
     <div class="container margin-top-48">
         <center>
-            <h5 id="admin-header">Students</h5>
+            <h5 id="admin-header">Students - All</h5>
         </center>
         <div class="card">
             <div class="card-content">
                 <div class="row">
                     <div class="col s4">
                         <select class="browser-default" id="home-loc-select">
-                            <option value="" disabled selected>Select a Location</option>
+                            <option value="All">All Campuses</option>
                             <option value="Laguna Campus">Laguna Campus</option>
                             <option value="Taft Campus">Taft Campus</option>
                         </select>
@@ -53,32 +53,60 @@
     $("#home-loc-select").on('change', function () {
        $("#lab-items-table").find('tbody').empty();
        $('#admin-header').html("Students - " + this.value );
+
+       if(this.value == "All"){
+        $("#lab-items-table").find('tbody').append(
+                                    '<tr>' +
+                                    '<td>DELA CRUZ, Juan</td>' +
+                                    '<td class="yellow-text text-darken-2">PENDING APPROVAL</td>'+
+                                    '<td><a href="#" class="btn">VIEW</a></td>'+
+                                    '<td></td>'+
+                                    '</tr>'
+                                    +
+                                    '<tr>' +
+                                    '<td>DOE, John</td>'+
+                                    '<td class="red-text text-darken-4">OVERDUE</td>'+
+                                    '<td><a href="#" class="btn">VIEW</a></td>'+
+                                    '<td></td>'+
+                                    '</tr>'
+                                    +
+                                    '<tr>' +
+                                    '<td>DELA CRUZ, Juanita</td>'+
+                                    '<td class="blue-text">ACTIVE</td>'+
+                                    '<td><a href="#" class="btn">VIEW</a></td>'+
+                                    '<td></td>'+
+                                    '</tr>'
+            )
+       }
        if(this.value == "Taft Campus"){
          $("#lab-items-table").find('tbody').append(
                             '<tr>' +
-                            '<td>11825565</td>'+
-                            '<td>On Loan</td>'+
-                            '<td><a href="#">5</a></td>'+
-                            '<th></th>'+
+                            '<td>DELA CRUZ, Juan</td>' +
+                            '<td class="yellow-text text-darken-2">PENDING APPROVAL</td>'+
+                            '<td><a href="#" class="btn">VIEW</a></td>'+
+                            '<td></td>'+
                             '</tr>'
                             +
                             '<tr>' +
-                            '<td>11766854</td>'+
-                            '<td>On Loan</td>'+
-                            '<td><a href="#">2</a></td>'+
-                            '<th></th>'+
+                            '<td>DOE, John</td>'+
+                            '<td class="red-text text-darken-4">OVERDUE</td>'+
+                            '<td><a href="#" class="btn">VIEW</a></td>'+
+                            '<td></td>'+
                             '</tr>'
        )}
-
+                         
        else if(this.value == "Laguna Campus"){
          $("#lab-items-table").find('tbody').append(
                             '<tr>' +
-                            '<td>11935365</td>'+
-                            '<td>On Loan</td>'+
-                            '<td><a href="#">1</a></td>'+
-                            '<th></th>'+
+                            '<td>DELA CRUZ, Juanita</td>'+
+                            '<td class="blue-text">ACTIVE</td>'+
+                            '<td><a href="#" class="btn">VIEW</a></td>'+
+                            '<td></td>'+
                             '</tr>'
                             
         )}
     });
-</script>>
+</script>> 
+                            
+                            
+                           
