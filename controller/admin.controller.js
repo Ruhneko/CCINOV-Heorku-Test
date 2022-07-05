@@ -20,7 +20,7 @@ exports.getAdminHome = async(req, res) => {
         return;
     }
 
-    res.redirect('/admin/inventory');   
+    res.redirect('/admin/dashboard');   
 };
 
 exports.getAdminLogin = async(req, res) => {
@@ -144,7 +144,7 @@ exports.addLabItem = async(req, res) => {
     }
 
     await labTransactor.addInventory(filter, LabItem, function(results) {
-        res.redirect('/admin');
+        res.redirect('/admin/inventory');
     });  
 }
 
@@ -170,7 +170,7 @@ exports.updateLabItem = async(req, res) => {
     }
     
     await labTransactor.updateInventory(filter, LabItem, function(results) {
-        res.redirect('/admin');
+        res.redirect('/admin/inventory');
     });  
 }
 
